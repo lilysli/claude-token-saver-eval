@@ -1,0 +1,111 @@
+{
+  "1a2fe81d143a4384": {
+    "baseline": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10276,
+      "cache_read_input_tokens": 23326,
+      "output_tokens": 1556,
+      "n_turns": 2,
+      "total_tokens": 11836
+    },
+    "tokensaver": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10316,
+      "cache_read_input_tokens": 23326,
+      "output_tokens": 1296,
+      "n_turns": 2,
+      "total_tokens": 11616
+    }
+  },
+  "4d7728c9f04e478c": {
+    "baseline": {
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "n_turns": 1,
+      "total_tokens": 0
+    },
+    "tokensaver": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10302,
+      "cache_read_input_tokens": 23198,
+      "output_tokens": 1330,
+      "n_turns": 2,
+      "total_tokens": 11636
+    }
+  },
+  "6f7be1e8647b4fbd": {
+    "baseline": {
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "n_turns": 1,
+      "total_tokens": 0
+    },
+    "tokensaver": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10420,
+      "cache_read_input_tokens": 23326,
+      "output_tokens": 1254,
+      "n_turns": 2,
+      "total_tokens": 11678
+    }
+  },
+  "9f1b7328854245db": {
+    "baseline": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10338,
+      "cache_read_input_tokens": 23198,
+      "output_tokens": 3448,
+      "n_turns": 2,
+      "total_tokens": 13790
+    },
+    "tokensaver": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10378,
+      "cache_read_input_tokens": 23198,
+      "output_tokens": 2516,
+      "n_turns": 2,
+      "total_tokens": 12898
+    }
+  },
+  "e1d2b4cb299e45ca": {
+    "baseline": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10318,
+      "cache_read_input_tokens": 23326,
+      "output_tokens": 1028,
+      "n_turns": 2,
+      "total_tokens": 11350
+    },
+    "tokensaver": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 10358,
+      "cache_read_input_tokens": 23326,
+      "output_tokens": 1184,
+      "n_turns": 2,
+      "total_tokens": 11546
+    }
+  },
+  "_aggregate": {
+    "baseline": {
+      "input_tokens": 12,
+      "cache_creation_input_tokens": 30932,
+      "cache_read_input_tokens": 69850,
+      "output_tokens": 6032,
+      "total_tokens": 36976,
+      "n_turns": 8
+    },
+    "tokensaver": {
+      "input_tokens": 20,
+      "cache_creation_input_tokens": 51774,
+      "cache_read_input_tokens": 116374,
+      "output_tokens": 7580,
+      "total_tokens": 59374,
+      "n_turns": 10
+    }
+  },
+  "_n_compared": 5
+}

@@ -1,0 +1,16 @@
+# Large raw dataset 
+wildbench_full.json
+wildbench_coding.json
+
+# internal script to pull tasks from datasets
+/scripts/fetch_tasks.py
+
+# Session internals — not needed for reproducibility
+/results/*.jsonl
+/results/*.meta.json
+/results/*.txt
+
+# Misc
+__pycache__/
+*.pyc
+.DS_Store
