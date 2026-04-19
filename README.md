@@ -2,6 +2,8 @@
 
 Measures whether [tokensaver](https://github.com/lilysijiali/claude-token-saver) — a Claude Code hook that refines user prompts with a local LLM before Claude processes them — reduces token usage without degrading response quality.
 
+Evaluated on Claude Sonnet 4.6.
+
 ## Dataset
 
 30 tasks were selected from [WildBench v2](https://huggingface.co/datasets/allenai/WildBench/viewer/v2) under the **Coding & Debugging** primary tag. WildBench prompts are collected from real users interacting with ChatGPT, making them more representative of how people naturally write prompts. Tokensaver improves the prompts, refining them to decrease the thinking and output of Claude Code, thus lowering token usage.
