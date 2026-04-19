@@ -127,20 +127,20 @@ run_session() {
         # Send the prompt directly — tokensaver hook is off by default and
         # is never activated, so this session is a clean baseline.
         ( cd "$SESSION_DIR" && printf "%s\n" "$PROMPT" | \
-            claude --dangerously-skip-permissions --allowedTools "Read,Write,Edit,Glob,Grep" 2>&1 | tee "$OUT_TXT" ) || true
+            claude --dangerously-skip-permissions 2>&1 | tee "$OUT_TXT" ) || true
     else
         # Activate the tokensaver hook for this prompt via three piped turns:
         #   turn 1: --tokensaver   → hook activates for the next prompt
         #   turn 2: <prompt>       → hook refines it with Ollama, shows gate
         #   turn 3: y              → accept refined prompt; Claude processes it
         ( cd "$SESSION_DIR" && printf -- "--tokensaver\n%s\ny\n" "$PROMPT" | \
-            claude --dangerously-skip-permissions --allowedTools "Read,Write,Edit,Glob,Grep" 2>&1 | tee "$OUT_TXT" ) || true
+            claude --dangerously-skip-permissions 2>&1 | tee "$OUT_TXT" ) || true
     fi
 
     # Copy the session JSONL from its deterministic project directory
     local SESSION_JSONL
     SESSION_JSONL=$(find "$PROJECT_DIR" -name "*.jsonl" \
-        -not -path "*/subagents/*" 2>/dev/null | sort | tail -1)
+        -not -path "*/subagents/*" 2>/dev/null | xargs ls -t 2>/dev/null | head -1)
 
     if [ -z "$SESSION_JSONL" ]; then
         echo "  [ERROR] Session JSONL not found in: $PROJECT_DIR"

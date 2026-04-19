@@ -168,7 +168,7 @@ def main():
     summary["_aggregate"] = {c: dict(data) for c, data in agg.items()}
     summary["_n_compared"] = n_compared
 
-    out = os.path.join(RESULTS_DIR, "_token_summary.json")
+    out = os.path.join(RESULTS_DIR, "results.json")
     with open(out, 'w') as f:
         json.dump(summary, f, indent=2)
     print(f"Full summary saved to {out}")

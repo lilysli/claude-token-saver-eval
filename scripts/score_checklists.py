@@ -178,11 +178,28 @@ def main():
               f"  {total_t_pass}/{total_items} ({t_pct:.0f}%) {t_pct-b_pct:>+.0f}pp"
               f"  {b_iavg:>7.1f}/5 {t_iavg:>7.1f}/5 {t_iavg-b_iavg:>+.1f}")
 
-    # Save
-    out_path = os.path.join(RESULTS_DIR, '_checklist_scores.json')
-    with open(out_path, 'w') as f:
-        json.dump(all_scores, f, indent=2)
-    print(f"\nSaved to {out_path}")
+    # Merge into results.json
+    results_path = os.path.join(RESULTS_DIR, 'results.json')
+    if os.path.exists(results_path):
+        with open(results_path) as f:
+            results = json.load(f)
+    else:
+        results = {}
+
+    for tid, conds in all_scores.items():
+        if tid not in results:
+            results[tid] = {}
+        for condition, scores in conds.items():
+            if scores is None:
+                continue
+            if condition not in results[tid]:
+                results[tid][condition] = {}
+            results[tid][condition]['intent_score'] = scores['intent_score']
+            results[tid][condition]['checklist'] = f"{scores['passed']}/{scores['total']}"
+
+    with open(results_path, 'w') as f:
+        json.dump(results, f, indent=2)
+    print(f"\nScores merged into {results_path}")
 
 
 if __name__ == '__main__':

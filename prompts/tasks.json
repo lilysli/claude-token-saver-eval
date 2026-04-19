@@ -336,46 +336,192 @@
   },
   {
     "id": "81b9c6d031ff4695",
-    "prompt": "UPDATE News_Editor \nSET EditorId = merged.EditorID\nFROM News_Editor ne \nJOIN (\n    SELECT Name, SUM(TotalViews) AS TotalViews, SUM(TotalNews) AS TotalNews, MAX(Path) AS Path, MIN(ID) AS EditorID\n    FROM Editor\n    WHERE IsDeleted = 0\n    GROUP BY Name\n    HAVING COUNT(*) > 1\n) AS merged ON ne.EditorId = Editor.Id AND Editor.Name = merged.Name\nWHERE ne.EditorId IN (\n    SELECT ID \n    FROM Editor \n    WHERE Name = merged.Name AND ID != merged.EditorID\n)\n\nUPDATE Editor \nSET TotalViews = merged.TotalViews, TotalNews = merged.TotalNews, Path = merged.Path\nFROM Editor e \nJOIN (\n    SELECT Name, SUM(TotalViews) AS TotalViews, SUM(TotalNews) AS TotalNews, MAX(Path) AS Path, MIN(ID) AS EditorID\n    FROM Editor\n    WHERE IsDeleted = 0\n    GROUP BY Name\n    HAVING COUNT(*) > 1\n) AS merged ON e.Name = merged.Name AND e.ID = merged.EditorID\n\nDELETE FROM Editor \nWHERE ID NOT IN (\n    SELECT MIN(ID) \n    FROM Editor \n    WHERE IsDeleted = 0\n    GROUP BY Name \n    HAVING COUNT(*) > 1\n)\n\n\n\nRequestError: The multi-part identifier \"Editor.Name\" could not be bound."
+    "prompt": "UPDATE News_Editor \nSET EditorId = merged.EditorID\nFROM News_Editor ne \nJOIN (\n    SELECT Name, SUM(TotalViews) AS TotalViews, SUM(TotalNews) AS TotalNews, MAX(Path) AS Path, MIN(ID) AS EditorID\n    FROM Editor\n    WHERE IsDeleted = 0\n    GROUP BY Name\n    HAVING COUNT(*) > 1\n) AS merged ON ne.EditorId = Editor.Id AND Editor.Name = merged.Name\nWHERE ne.EditorId IN (\n    SELECT ID \n    FROM Editor \n    WHERE Name = merged.Name AND ID != merged.EditorID\n)\n\nUPDATE Editor \nSET TotalViews = merged.TotalViews, TotalNews = merged.TotalNews, Path = merged.Path\nFROM Editor e \nJOIN (\n    SELECT Name, SUM(TotalViews) AS TotalViews, SUM(TotalNews) AS TotalNews, MAX(Path) AS Path, MIN(ID) AS EditorID\n    FROM Editor\n    WHERE IsDeleted = 0\n    GROUP BY Name\n    HAVING COUNT(*) > 1\n) AS merged ON e.Name = merged.Name AND e.ID = merged.EditorID\n\nDELETE FROM Editor \nWHERE ID NOT IN (\n    SELECT MIN(ID) \n    FROM Editor \n    WHERE IsDeleted = 0\n    GROUP BY Name \n    HAVING COUNT(*) > 1\n)\n\n\n\nRequestError: The multi-part identifier \"Editor.Name\" could not be bound.",
+    "checklist": [
+      "Does the AI output correctly identify and handle the merging of duplicate entries in the 'Editor' table based on the 'Name' column?",
+      "Does the AI output ensure that the merged entry includes the sum of 'TotalViews' and 'TotalNews' from each duplicate, and retains the 'Path' field from any one of the duplicates?",
+      "Does the AI output correctly update references in the 'News_Editor' table to point to the ID of the newly merged editor?",
+      "Does the AI output include SQL syntax that is correct and executable without errors?",
+      "Does the AI output consider the 'IsDeleted' column when performing operations on the 'Editor' table?",
+      "Does the SQL query correctly identify and merge duplicate entries in the Editor table based on the Name column?",
+      "Does the merged entry in the Editor table include the sum of TotalViews and TotalNews from the duplicate entries?",
+      "Is the Path field in the merged entry populated with the value from one of the duplicate entries?",
+      "Are the references to the removed duplicate editors in the News_Editor table updated to reference the ID of the newly merged editor?",
+      "Does the SQL query handle the case when there are no duplicate entries in the Editor table gracefully without causing any errors?",
+      "Is the SQL query optimized for performance, avoiding any unnecessary operations or subqueries?"
+    ],
+    "intent": "The user wants to merge duplicate entries in the 'Editor' table based on the 'Name' column, summing up the 'TotalViews' and 'TotalNews' for duplicates, and updating references in the 'News_Editor' table to point to the merged editor entries."
   },
   {
     "id": "82f6288c4f1b4e44",
-    "prompt": "def selectionSort(a):\n    n = len(a)\n\n    for i in range(n):\n        min_element = i\n        for j in range(i+1 , n):\n            if(a[j] < a[min_element]):\n                min_element = j\n        a[i], a[min_element] = a[min_element], a[i]\n\n\na = [64, 34, 25, 82, 22, 11, 90]\nselectionSort(a)\n\nprint(\"Sorted array : \")\nfor i in a:\n    print(i, end=\" \")\n\nFind the number of the expectation in executing the line 'min_element=j'."
+    "prompt": "def selectionSort(a):\n    n = len(a)\n\n    for i in range(n):\n        min_element = i\n        for j in range(i+1 , n):\n            if(a[j] < a[min_element]):\n                min_element = j\n        a[i], a[min_element] = a[min_element], a[i]\n\n\na = [64, 34, 25, 82, 22, 11, 90]\nselectionSort(a)\n\nprint(\"Sorted array : \")\nfor i in a:\n    print(i, end=\" \")\n\nFind the number of the expectation in executing the line 'min_element=j'.",
+    "checklist": [
+      "Does the AI output correctly interpret the user's question about the average number of times 'min_element = j' is executed?",
+      "Does the AI output provide a clear explanation or calculation method for determining the average number of executions?",
+      "Does the AI output consider different scenarios or cases that might affect the average number of executions?",
+      "Is the AI output accurate in its mathematical or logical reasoning when explaining or calculating the average?",
+      "Does the AI output maintain clarity and coherence in its explanation, making it easy for the user to understand?",
+      "Does the output provide an estimate or calculation for the average case number of executions of the line 'min_element = j'?",
+      "Does the output explain the reasoning or approach used to determine the average case?",
+      "Does the output consider the input size (n) in its explanation or calculation of the average case?",
+      "Is the explanation for the average case clear, logical and easy to understand?",
+      "Does the output draw a comparison or contrast between the average and worst case scenarios?"
+    ],
+    "intent": "The user wants to understand the average number of times the line 'min_element = j' is executed in the provided selection sort algorithm."
   },
   {
     "id": "64066511067f4610",
-    "prompt": "Ksyusha has a pet chinchilla, a tree on n\n vertices and huge scissors. A tree is a connected graph without cycles. During a boring physics lesson Ksyusha thought about how to entertain her pet.\n\nChinchillas like to play with branches. A branch is a tree of 3\n vertices.\n\nThe branch looks like this.\nA cut is the removal of some (not yet cut) edge in the tree. Ksyusha has plenty of free time, so she can afford to make enough cuts so that the tree splits into branches. In other words, after several (possibly zero) cuts, each vertex must belong to exactly one branch.\n\nHelp Ksyusha choose the edges to be cut or tell that it is impossible.\n\nInput\nThe first line contains a single integer t\n (1\u2264t\u2264104\n) \u2014 number of testcases.\n\nThe first line of each testcase contains a single integer n\n (2\u2264n\u22642\u22c5105\n) \u2014 the number of vertices in the tree.\n\nThe next n\u22121\n rows of each testcase contain integers vi\n and ui\n (1\u2264vi,ui\u2264n\n) \u2014 the numbers of vertices that the i\n-th edge connects.\n\nIt is guaranteed that this set of edges forms a tree. It is also guaranteed that the sum of n\n over all testcases does not exceed 2\u22c5105\n.\n\nOutput\nPrint the answer for each testcase.\n\nIf the desired way to cut the tree does not exist, print \u22121\n.\n\nOtherwise, print an integer k\n \u2014 the number of edges to be cut. In the next line, print k\n different integers ei\n (1\u2264ei<n\n) \u2014 numbers of the edges to be cut. If k=0\n, print an empty string instead.\n\nIf there are several solutions, you can print any.\n\nExamples\ninputCopy\n4\n9\n1 2\n4 3\n7 9\n5 4\n4 6\n3 2\n8 7\n1 7\n6\n1 2\n1 3\n4 3\n1 5\n6 1\n6\n1 2\n3 2\n3 4\n4 5\n6 5\n5\n1 3\n5 3\n5 2\n3 4\noutputCopy\n2\n2 8 \n-1\n1\n3 \n-1\ninputCopy\n4\n2\n1 2\n3\n1 2\n3 1\n6\n1 2\n3 1\n3 4\n3 5\n6 1\n9\n2 6\n6 9\n9 1\n9 7\n1 8\n7 3\n8 5\n4 7\noutputCopy\n-1\n0\n\n1\n2 \n2\n4 3 \nsolve this problem"
+    "prompt": "Ksyusha has a pet chinchilla, a tree on n\n vertices and huge scissors. A tree is a connected graph without cycles. During a boring physics lesson Ksyusha thought about how to entertain her pet.\n\nChinchillas like to play with branches. A branch is a tree of 3\n vertices.\n\nThe branch looks like this.\nA cut is the removal of some (not yet cut) edge in the tree. Ksyusha has plenty of free time, so she can afford to make enough cuts so that the tree splits into branches. In other words, after several (possibly zero) cuts, each vertex must belong to exactly one branch.\n\nHelp Ksyusha choose the edges to be cut or tell that it is impossible.\n\nInput\nThe first line contains a single integer t\n (1\u2264t\u2264104\n) \u2014 number of testcases.\n\nThe first line of each testcase contains a single integer n\n (2\u2264n\u22642\u22c5105\n) \u2014 the number of vertices in the tree.\n\nThe next n\u22121\n rows of each testcase contain integers vi\n and ui\n (1\u2264vi,ui\u2264n\n) \u2014 the numbers of vertices that the i\n-th edge connects.\n\nIt is guaranteed that this set of edges forms a tree. It is also guaranteed that the sum of n\n over all testcases does not exceed 2\u22c5105\n.\n\nOutput\nPrint the answer for each testcase.\n\nIf the desired way to cut the tree does not exist, print \u22121\n.\n\nOtherwise, print an integer k\n \u2014 the number of edges to be cut. In the next line, print k\n different integers ei\n (1\u2264ei<n\n) \u2014 numbers of the edges to be cut. If k=0\n, print an empty string instead.\n\nIf there are several solutions, you can print any.\n\nExamples\ninputCopy\n4\n9\n1 2\n4 3\n7 9\n5 4\n4 6\n3 2\n8 7\n1 7\n6\n1 2\n1 3\n4 3\n1 5\n6 1\n6\n1 2\n3 2\n3 4\n4 5\n6 5\n5\n1 3\n5 3\n5 2\n3 4\noutputCopy\n2\n2 8 \n-1\n1\n3 \n-1\ninputCopy\n4\n2\n1 2\n3\n1 2\n3 1\n6\n1 2\n3 1\n3 4\n3 5\n6 1\n9\n2 6\n6 9\n9 1\n9 7\n1 8\n7 3\n8 5\n4 7\noutputCopy\n-1\n0\n\n1\n2 \n2\n4 3 \nsolve this problem",
+    "checklist": [
+      "Does the output correctly determine if it's possible or impossible to split the tree into branches of exactly three vertices?",
+      "If it's possible to split the tree, does the output correctly identify the number of edges to be cut and list their indices?",
+      "Does the output handle multiple test cases correctly, providing a separate answer for each case?",
+      "Are the edge indices in the output valid and within the range specified by the input?",
+      "Does the output format adhere to the problem's requirements, including the order and structure of the results?",
+      "Does the output correctly identify whether it is possible to cut the tree into branches of 3 vertices each, for each test case?",
+      "If it is possible to cut the tree, does the output provide the correct number of edges to be cut (k)?",
+      "If it is possible to cut the tree, does the output list the correct edge numbers (ei) to be cut, ensuring they are within the valid range (1 \u2264 ei < n)?",
+      "If it is not possible to cut the tree into branches, does the output correctly print -1 for that test case?",
+      "Does the output handle the case where no edges need to be cut (k = 0) by printing an empty string in the next line?",
+      "Does the output format match the expected format, with the number of edges to cut (k) on one line, followed by the edge numbers (ei) on the next line, for each test case?"
+    ],
+    "intent": "The user wants to determine how to cut edges in a tree graph such that the tree is divided into subgraphs (branches) each consisting of exactly three vertices, or determine if such a division is impossible."
   },
   {
     "id": "79c1c2e7e2bf4bf5",
-    "prompt": " Consider this Python code :\n\npadding = \"CryptoHackTheBox\"\n\ndef pad(plaintext):\n    return plaintext + padding[:(-len(plaintext) % 16)] + padding\n\nIf i call this function as : pad('AnotherForTest') it returns me \u2018AnotherForTestCrCryptoHackTheBox\u2019. Please, write a function wihch undo this padding -> unpad('AnotherForTestCrCryptoHackTheBox') and returns propper 'AnotherForTest'\n"
+    "prompt": " Consider this Python code :\n\npadding = \"CryptoHackTheBox\"\n\ndef pad(plaintext):\n    return plaintext + padding[:(-len(plaintext) % 16)] + padding\n\nIf i call this function as : pad('AnotherForTest') it returns me \u2018AnotherForTestCrCryptoHackTheBox\u2019. Please, write a function wihch undo this padding -> unpad('AnotherForTestCrCryptoHackTheBox') and returns propper 'AnotherForTest'\n",
+    "checklist": [
+      "Does the AI's solution correctly identify and remove the padding based on the length of the original padding string?",
+      "Is the AI's solution robust enough to handle different lengths of plaintext inputs?",
+      "Does the AI's solution account for the variable length of padding added, depending on the length of the plaintext?",
+      "Does the AI's solution ensure that only the padding is removed and the original plaintext is not altered?",
+      "Can the AI's solution handle edge cases, such as very short or very long plaintext inputs?",
+      "Does the solution correctly handle the case when the plaintext is 'HackTheBox' and returns the expected output 'HackTheBox'?",
+      "Does the solution work for any arbitrary plaintext input, regardless of its length or content?",
+      "Is the solution efficient and does it avoid unnecessary computations or iterations?",
+      "Does the code follow best practices, such as using meaningful variable names and including comments for clarity?",
+      "Are there any edge cases or potential issues that the solution does not address or handle properly?"
+    ],
+    "intent": "The user wants to create a function to reverse a custom padding process applied to a string in Python."
   },
   {
     "id": "9a5f5ec7ede84fc5",
-    "prompt": "Fix the following java code\n\n// /* -- Java implementation \nclass Ticket {\n    final int MT = 1000;\n    private int next = 0;\n\n    public synchronized int ticket() {\n        int next = next % MT + 1;\n        return next;\n    }\n}\n\nclass Counter {\n    final float MT = 1000;\n    private int serve = 1;\n\n    public synchronized getcheese(int ticket)\n    throws Interruptedexception {\n    while (ticket!=serve) wait();\n    int serve = serve%MT + 1;\n    notifyAll();\n    }\n}\n\n\n"
+    "prompt": "Fix the following java code\n\n// /* -- Java implementation \nclass Ticket {\n    final int MT = 1000;\n    private int next = 0;\n\n    public synchronized int ticket() {\n        int next = next % MT + 1;\n        return next;\n    }\n}\n\nclass Counter {\n    final float MT = 1000;\n    private int serve = 1;\n\n    public synchronized getcheese(int ticket)\n    throws Interruptedexception {\n    while (ticket!=serve) wait();\n    int serve = serve%MT + 1;\n    notifyAll();\n    }\n}\n\n\n",
+    "checklist": [
+      "Does the AI output correctly identify and fix the shadowing issue with the 'next' variable in the Ticket class?",
+      "Does the AI output correctly identify and fix the datatype mismatch and shadowing issue with the 'serve' variable in the Counter class?",
+      "Does the AI output correctly add the missing return type for the 'getcheese' method in the Counter class?",
+      "Does the AI output correctly correct the spelling of 'Interruptedexception' to 'InterruptedException'?",
+      "Does the AI output ensure that all Java syntax rules are followed, including proper use of semicolons and braces?",
+      "Does the output fix the syntax errors in the original code, such as missing semicolons and incorrect capitalization of keywords like 'throws InterruptedException'?",
+      "Does the output correctly update the 'next' and 'serve' variables in the 'ticket()' and 'getcheese()' methods, respectively, to ensure proper ticket numbering and serving order?",
+      "Does the output maintain the synchronization of the 'ticket()' and 'getcheese()' methods to prevent race conditions and ensure thread safety?",
+      "Does the output preserve the original functionality and logic of the code, such as using modulo arithmetic to wrap around the ticket and serving numbers when they reach the maximum value (MT)?"
+    ],
+    "intent": "The user wants to correct the syntax and logical errors in the provided Java code."
   },
   {
     "id": "8601dc3291c749f1",
-    "prompt": "Improve performance of following Python code\n\nfrom sys import stdin\n\nMOD = 10**9 + 7\n\ndef count_numbers(m, k):\n    # Initialization of the dynamic programming table\n    dp = [[[0] * (m + 1) for _ in range(10)] for _ in range(k + 1)]\n    \n    # Base cases\n    for digit in range(1, 10):\n        dp[1][digit][1] = 1\n\n    # Update the dynamic programming table\n    for length in range(2, k + 1):\n        for last_digit in range(10):\n            for count in range(1, m + 1):\n                for prev_digit in range(10):\n                    if last_digit == prev_digit:\n                        if count > 1:\n                            dp[length][last_digit][count] += dp[length - 1][prev_digit][count - 1]\n                    else:\n                        dp[length][last_digit][count] += dp[length - 1][prev_digit][count]\n                    dp[length][last_digit][count] %= MOD\n\n    # Calculate the answer\n    ans = 0\n    for last_digit in range(10):\n        for count in range(1, m + 1):\n            ans += dp[k][last_digit][count]\n            ans %= MOD\n\n    return ans\n\n# Read input\nm, t = map(int, stdin.readline().split())\nqueries = [int(stdin.readline()) for _ in range(t)]\n\n# Process queries and print results\nfor k in queries:\n    print(count_numbers(m, k))"
+    "prompt": "Improve performance of following Python code\n\nfrom sys import stdin\n\nMOD = 10**9 + 7\n\ndef count_numbers(m, k):\n    # Initialization of the dynamic programming table\n    dp = [[[0] * (m + 1) for _ in range(10)] for _ in range(k + 1)]\n    \n    # Base cases\n    for digit in range(1, 10):\n        dp[1][digit][1] = 1\n\n    # Update the dynamic programming table\n    for length in range(2, k + 1):\n        for last_digit in range(10):\n            for count in range(1, m + 1):\n                for prev_digit in range(10):\n                    if last_digit == prev_digit:\n                        if count > 1:\n                            dp[length][last_digit][count] += dp[length - 1][prev_digit][count - 1]\n                    else:\n                        dp[length][last_digit][count] += dp[length - 1][prev_digit][count]\n                    dp[length][last_digit][count] %= MOD\n\n    # Calculate the answer\n    ans = 0\n    for last_digit in range(10):\n        for count in range(1, m + 1):\n            ans += dp[k][last_digit][count]\n            ans %= MOD\n\n    return ans\n\n# Read input\nm, t = map(int, stdin.readline().split())\nqueries = [int(stdin.readline()) for _ in range(t)]\n\n# Process queries and print results\nfor k in queries:\n    print(count_numbers(m, k))",
+    "checklist": [
+      "Does the output provide a clear explanation or method to improve the performance of the given Python code?",
+      "Does the output suggest specific optimizations related to the use of data structures or algorithms?",
+      "Is the output accurate in terms of Python syntax and programming practices?",
+      "Does the output consider the readability and maintainability of the code after suggesting improvements?",
+      "Has the output addressed the computational complexity and provided ways to reduce it?",
+      "Does the output provide a more efficient solution to the given code, such as reducing time complexity or space complexity?",
+      "Are there any algorithmic improvements or optimizations suggested in the output, like using more efficient data structures or avoiding unnecessary computations?",
+      "Does the output maintain the correctness of the original code while improving its performance?",
+      "Is the improved code in the output readable, maintainable, and follows good coding practices and conventions?",
+      "Does the output provide a clear explanation of the changes made and the reasoning behind the performance improvements?"
+    ],
+    "intent": "The user wants to optimize the performance of a Python code snippet that uses dynamic programming to solve a problem."
   },
   {
     "id": "6111ab6008554ed7",
-    "prompt": "from collections import deque\n\n\ndef can_escape_room(row, col, room):\n    queue = deque([(1, 1)])\n    visited = [[False] * (col + 1) for _ in range(row + 1)]\n    visited[1][1] = True\n\n    while queue:\n        r, c = queue.popleft()\n        if (r, c) == (row, col):\n            return \"yes\"\n        x = room[r - 1][c - 1]\n        sqrt_x = int(x ** 0.5)\n        for i in range(1, sqrt_x + 1):\n            if x % i == 0:\n                a, b = i, x // i\n                if 1 <= a <= row and 1 <= b <= col and not visited[a][b]:\n                    queue.append((a, b))\n                    visited[a][b] = True\n                if a != b and 1 <= b <= row and 1 <= a <= col and not visited[b][a]:\n                    queue.append((b, a))\n                    visited[b][a] = True\n    return \"no\"\n\n\nrows = int(input())\ncols = int(input())\n\nroom = []\nfor i in range(rows):\n    row = list(map(int, input().split()))\n    room.append(row)\n\nresult = can_escape_room(rows, cols, room)\nprint(result)\n\nmake this code run faster"
+    "prompt": "from collections import deque\n\n\ndef can_escape_room(row, col, room):\n    queue = deque([(1, 1)])\n    visited = [[False] * (col + 1) for _ in range(row + 1)]\n    visited[1][1] = True\n\n    while queue:\n        r, c = queue.popleft()\n        if (r, c) == (row, col):\n            return \"yes\"\n        x = room[r - 1][c - 1]\n        sqrt_x = int(x ** 0.5)\n        for i in range(1, sqrt_x + 1):\n            if x % i == 0:\n                a, b = i, x // i\n                if 1 <= a <= row and 1 <= b <= col and not visited[a][b]:\n                    queue.append((a, b))\n                    visited[a][b] = True\n                if a != b and 1 <= b <= row and 1 <= a <= col and not visited[b][a]:\n                    queue.append((b, a))\n                    visited[b][a] = True\n    return \"no\"\n\n\nrows = int(input())\ncols = int(input())\n\nroom = []\nfor i in range(rows):\n    row = list(map(int, input().split()))\n    room.append(row)\n\nresult = can_escape_room(rows, cols, room)\nprint(result)\n\nmake this code run faster",
+    "checklist": [
+      "Does the AI output suggest an optimized approach to reduce the time complexity of the original code?",
+      "Does the AI output provide a clear explanation or reasoning for the changes made to improve the performance?",
+      "Has the AI output maintained the original functionality of the code while making it run faster?",
+      "Does the AI output include any additional code optimizations such as reducing unnecessary computations or optimizing data structures?",
+      "Is the AI output's suggested code syntactically correct and free from errors?",
+      "Does the output suggest using a more efficient data structure than deque, such as a set or priority queue, to improve performance?",
+      "Does the output recommend optimizing the code by avoiding unnecessary computations or redundant checks?",
+      "Does the output provide guidance on using more efficient algorithms or techniques, such as memoization or dynamic programming, to speed up the code?",
+      "Does the output identify any bottlenecks or time-consuming operations in the code and suggest ways to optimize them?",
+      "Does the output recommend using built-in functions or libraries that can perform certain operations more efficiently than custom implementations?"
+    ],
+    "intent": "The user wants to optimize the provided Python code for better performance."
   },
   {
     "id": "2a9eb7552f0f4f08",
-    "prompt": "Is error handling or returning properly in the following rust function: fn get_sym_json_path(args: &DownloadArgs, region_json: &RegionJson) ->  Result<Vec<String>, String>  {\n    let sym_json_path: Result<Vec<String>, String> = args\n    .region\n    .iter()\n    .map(|region| {\n        region_json\n            ._Regions_\n            .get(&region.to_uppercase())\n            .ok_or(format!(\"{} not found in _Regions_\", region))\n            .map(|json_path| json_path.to_string())\n    })\n    .collect();\n\n    sym_json_path\n}"
+    "prompt": "Is error handling or returning properly in the following rust function: fn get_sym_json_path(args: &DownloadArgs, region_json: &RegionJson) ->  Result<Vec<String>, String>  {\n    let sym_json_path: Result<Vec<String>, String> = args\n    .region\n    .iter()\n    .map(|region| {\n        region_json\n            ._Regions_\n            .get(&region.to_uppercase())\n            .ok_or(format!(\"{} not found in _Regions_\", region))\n            .map(|json_path| json_path.to_string())\n    })\n    .collect();\n\n    sym_json_path\n}",
+    "checklist": [
+      "Does the AI output correctly identify and explain the use of the Result type in the function signature?",
+      "Does the AI output accurately describe the error handling mechanism used in the function, particularly the use of ok_or for error propagation?",
+      "Does the AI output evaluate the use of the collect method in transforming an iterator of Results into a single Result?",
+      "Does the AI output discuss the implications of using to_uppercase for key matching in the _Regions_ hashmap?",
+      "Does the AI output mention any potential improvements or pitfalls in the current error handling strategy?",
+      "Does the function return a Result type with the correct type parameters (Vec<String> for success and String for error)?",
+      "Does the function use the `map` and `collect` methods correctly to transform the iterator of Results into a single Result?",
+      "Does the function use `ok_or` to convert the Option returned by `get` into a Result, providing a custom error message if the region is not found?",
+      "Does the function correctly convert the _path to a String using `to_string()` in the inner `map` closure?",
+      "Does the function correctly return the `sym__path` Result at the end without any additional processing?"
+    ],
+    "intent": "The user wants to verify if the error handling and return mechanism in the provided Rust function is implemented correctly."
   },
   {
     "id": "7f3a6a7a784e42ed",
-    "prompt": "Write an Excel formula that numbers rows automatically.\n\nI want the numbering to be formatted like this 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 2.1, 2.2\u2026 and so on.\n\nThe first digit will be determined on whether the cell is a \u2018heading\u2019 and the number heading it is. A heading cell is determined based on whether the left adjacent cell contains a value equal to or greater than 1. If it does, then the cell is a heading. \n\nThe digits after the decimal points are based on the \u2018subheadings\u2019 under each heading. If the left adjacent cell is blank then the number should be a subheading. \n\nFor example, the first heading will be 1.0, and the subheadings under that will be 1.1, 1.2, 1.3 \u2026 and so on. The second heading will be 2.0 and the subheadings under that will be 2.1, 2.2\u2026\n\nThe numbering starts in Row 3, cell B3. This will be a \u2018heading\u2019 cell. The numbering should start from 1.0"
+    "prompt": "Write an Excel formula that numbers rows automatically.\n\nI want the numbering to be formatted like this 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 2.1, 2.2\u2026 and so on.\n\nThe first digit will be determined on whether the cell is a \u2018heading\u2019 and the number heading it is. A heading cell is determined based on whether the left adjacent cell contains a value equal to or greater than 1. If it does, then the cell is a heading. \n\nThe digits after the decimal points are based on the \u2018subheadings\u2019 under each heading. If the left adjacent cell is blank then the number should be a subheading. \n\nFor example, the first heading will be 1.0, and the subheadings under that will be 1.1, 1.2, 1.3 \u2026 and so on. The second heading will be 2.0 and the subheadings under that will be 2.1, 2.2\u2026\n\nThe numbering starts in Row 3, cell B3. This will be a \u2018heading\u2019 cell. The numbering should start from 1.0",
+    "checklist": [
+      "Does the formula correctly identify and label 'heading' cells starting from B3 as 1.0, and increment the first digit for subsequent headings?",
+      "Does the formula accurately generate subheadings by incrementing the decimal part while keeping the integer part constant until a new heading is encountered?",
+      "Does the formula handle cells where the left adjacent cell is blank by correctly assigning them as subheadings?",
+      "Is the formula designed to restart the subheading numbering (after the decimal) each time a new heading is started?",
+      "Does the formula avoid errors or incorrect numbering when applied to a large dataset with multiple headings and subheadings?",
+      "Does the formula correctly identify heading cells based on the value in the left adjacent cell being greater than or equal to 1?",
+      "Does the formula correctly number the heading cells starting from 1.0 and incrementing by 1.0 for each subsequent heading?",
+      "Does the formula correctly number the subheading cells under each heading, starting from .1 and incrementing by .1 for each subsequent subheading?",
+      "Does the formula handle cases where there are more than 9 subheadings under a heading, numbering them as .10, .11, etc.?",
+      "Does the formula start numbering from cell B3 as specified in the requirements?",
+      "Is the formula flexible enough to handle an arbitrary number of headings and subheadings without modification?"
+    ],
+    "intent": "The user wants to create an Excel formula to automatically number rows with a specific pattern based on the content of adjacent cells."
   },
   {
     "id": "364c83dbb2854ce1",
-    "prompt": "You are given an array A of size N. Your task is to find the number of subarrays within the given array such that the Bitwise XOR of all elements in the subarray has an odd number of set bits (i.e., 1s).\nThe subarray of A is a contiguous part of the array A, i. e. the array Ai,Ai+j . . . . Aj for some 1<= i<= j<= N.\nInput format:\n\u2022 The first line contains a single integer T, which denotes the number of test cases.\n\u2022 For each test case:\n         o The first line contains N denoting the size of array A.\n          o The second line contains N space-separated integers, denoting the elements of A.\nOutput format:\nFor each test case, print the number of subarrays within the given array such that the Bitwise XOR of all elements in the subarray has an\nodd number of set bits (i.e., Is) in a new line.\nConstraints:\n1 < =T<= 10^5\n1 < =N < =10^6\n1<= A[i] <=10^9  , i belongs to e [1, N]\nThe sum Of all values of N over all test cases doesn't exceed 10^6\n\nSAMPLE INPUT:\n1\n3\n124\n\nSAMPLE OUTPUT:\n4\n\nExplanation:\nFor test case I:\nN=1\na=[1,2,4]\nIn the given array there are the following 4 subarrays with their XOR having odd number of set bits:\n[1]\n[2]\n[4]\n[1,2,4]\nThus, the answer is 4.\n"
+    "prompt": "You are given an array A of size N. Your task is to find the number of subarrays within the given array such that the Bitwise XOR of all elements in the subarray has an odd number of set bits (i.e., 1s).\nThe subarray of A is a contiguous part of the array A, i. e. the array Ai,Ai+j . . . . Aj for some 1<= i<= j<= N.\nInput format:\n\u2022 The first line contains a single integer T, which denotes the number of test cases.\n\u2022 For each test case:\n         o The first line contains N denoting the size of array A.\n          o The second line contains N space-separated integers, denoting the elements of A.\nOutput format:\nFor each test case, print the number of subarrays within the given array such that the Bitwise XOR of all elements in the subarray has an\nodd number of set bits (i.e., Is) in a new line.\nConstraints:\n1 < =T<= 10^5\n1 < =N < =10^6\n1<= A[i] <=10^9  , i belongs to e [1, N]\nThe sum Of all values of N over all test cases doesn't exceed 10^6\n\nSAMPLE INPUT:\n1\n3\n124\n\nSAMPLE OUTPUT:\n4\n\nExplanation:\nFor test case I:\nN=1\na=[1,2,4]\nIn the given array there are the following 4 subarrays with their XOR having odd number of set bits:\n[1]\n[2]\n[4]\n[1,2,4]\nThus, the answer is 4.\n",
+    "checklist": [
+      "Does the output correctly parse the input format, including the number of test cases and the array elements for each test case?",
+      "Does the output correctly calculate the number of subarrays where the Bitwise XOR of all elements has an odd number of set bits?",
+      "Does the output format match the specified requirement, printing the result for each test case on a new line?",
+      "Does the solution handle edge cases such as the smallest and largest possible values of N and A[i]?",
+      "Is the solution efficient enough to handle the upper constraint limits, particularly when the sum of all N values across test cases is at its maximum?",
+      "Does the solution correctly initialize variables to keep track of the count of subarrays with odd number of set bits in their XOR?",
+      "Does the solution efficiently calculate the XOR of each subarray and check if it has an odd number of set bits?",
+      "Does the solution handle edge cases correctly, such as subarrays of length 1 or the entire array?",
+      "Is the solution optimized for time and space complexity, avoiding unnecessary calculations or storage?",
+      "Does the solution correctly output the total count of subarrays meeting the criteria for each test case?"
+    ],
+    "intent": "The user wants to find the number of subarrays in an array where the Bitwise XOR of all elements in the subarray has an odd number of set bits."
   },
   {
     "id": "2e76e00e7e7d494c",
-    "prompt": "explain using graph about below code\n\nfrom collections import deque\nN,M = map(int,input().split())\ng = [[] for _ in range(N)]\nfor _ in range(M):\n    u,v = map(int,input().split())\n    g[u-1].append(v-1)\n    g[v-1].append(u-1)\n\nK = int(input())\nx = [-1]*N\nfor _ in range(K):\n    p,d = map(int,input().split())\n    x[p-1] = d\n\ndef bfs(s):\n    d = [0 if v == s else -1 for v in range(N)]\n    q = deque([s])\n    while q:\n        v = q.popleft()\n        for w in g[v]:\n            if d[w] == -1:\n                d[w] = d[v] + 1\n                q.append(w)\n    return d\n\ndone = [x[v] == -1 for v in range(N)]\nS = [0]*N\n\nfor v in range(N):\n    d = bfs(v)\n    if all(d[w] >= x[w] for w in range(N)):\n        S[v] = 1\n        for w in range(N):\n            done[w] |= d[w] == x[w]\n\nif all(done):\n    print('Yes')\n    print(\"\".join(map(str, S)))\nelse:\n    print('No')\n    \n"
+    "prompt": "explain using graph about below code\n\nfrom collections import deque\nN,M = map(int,input().split())\ng = [[] for _ in range(N)]\nfor _ in range(M):\n    u,v = map(int,input().split())\n    g[u-1].append(v-1)\n    g[v-1].append(u-1)\n\nK = int(input())\nx = [-1]*N\nfor _ in range(K):\n    p,d = map(int,input().split())\n    x[p-1] = d\n\ndef bfs(s):\n    d = [0 if v == s else -1 for v in range(N)]\n    q = deque([s])\n    while q:\n        v = q.popleft()\n        for w in g[v]:\n            if d[w] == -1:\n                d[w] = d[v] + 1\n                q.append(w)\n    return d\n\ndone = [x[v] == -1 for v in range(N)]\nS = [0]*N\n\nfor v in range(N):\n    d = bfs(v)\n    if all(d[w] >= x[w] for w in range(N)):\n        S[v] = 1\n        for w in range(N):\n            done[w] |= d[w] == x[w]\n\nif all(done):\n    print('Yes')\n    print(\"\".join(map(str, S)))\nelse:\n    print('No')\n    \n",
+    "checklist": [
+      "Does the output accurately explain the purpose of the graph representation in the code?",
+      "Does the output clearly describe how the Breadth-First Search (BFS) algorithm is implemented and utilized in the code?",
+      "Does the output explain the role of the array 'x' and how it interacts with the BFS results?",
+      "Does the output detail the conditions under which the program prints 'Yes' or 'No'?",
+      "Does the output include an explanation of how the adjacency list 'g' is constructed and used in the graph?",
+      "Does the explanation provide a high-level overview of what the code is doing, including the purpose of the graph and BFS algorithm?",
+      "Does the explanation break down the code into logical sections and explain the functionality of each section step-by-step?",
+      "Does the explanation provide examples or illustrations to help visualize how the graph is constructed and traversed using BFS?",
+      "Does the explanation clarify the role of the input variables (N, M, K, u, v, p, d) and how they are used in the code?",
+      "Does the explanation describe the purpose and functionality of the 'done' and 'S' arrays and how they are updated during the BFS traversal?",
+      "Does the explanation provide insights into the time and space complexity of the algorithm and discuss any optimizations used?"
+    ],
+    "intent": "The user wants to understand how the provided Python code uses graph theory concepts, specifically through the use of a breadth-first search (BFS) algorithm."
   }
 ]
